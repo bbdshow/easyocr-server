@@ -1,0 +1,9 @@
+version: '3'
+services:
+  easyocr:
+    image: easyocr:latest
+    ports:
+      - 18899:8899
+    volumes:
+      - /root/tools/easyocr/data:/app/data
+    restart: always
