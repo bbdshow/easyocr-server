@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     libxrender-dev \
     libgl1-mesa-dev \
+    python3.10 \
+    python3-pip \
     git
 
 # 切换pip源到清华大学镜像源
@@ -26,23 +28,25 @@ RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 安装PyTorch CPU版本
 RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+# 安装 easyocr
+RUN pip3 install easyocr
+# 安装 Flask
+RUN pip3 install Flask
 
 # 设置工作目录
 WORKDIR /app
 
-RUN mkdir -p /home
-COPY ./EasyOCR /home/EasyOCR
+# easyocr 源码安装
+# RUN mkdir -p /home
+# COPY ./EasyOCR /home/EasyOCR
 
-RUN cd /home/EasyOCR \
-    && python setup.py build_ext --inplace -j 4 \
-    && python -m pip3 install -e .  \
-    && pip3 install --force-reinstall -v "Pillow==9.5.0"
+# RUN cd /home/EasyOCR \
+#     && python setup.py build_ext --inplace -j 4 \
+#     && python -m pip3 install -e .  \
+#     && pip3 install --force-reinstall -v "Pillow==9.5.0"
 
 COPY ./model /root/.EasyOCR/model
-COPY ./ocr_server.py ./ocr_server_cfg.json /app/
-
-# 安装 Flask
-RUN pip3 install Flask
+COPY ./server /app/server
 
 # 运行ocr_server.py
-CMD [ "python", "/app/ocr_server.py" ]
+CMD [ "python3", "/app/server/ocr_server.py" ]

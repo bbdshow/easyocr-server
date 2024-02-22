@@ -24,9 +24,9 @@ def ocr_image_path():
     check_err =  ocr.validate_image(image_path)
     if check_err:
         return make_response(f'image check err {check_err}', 400)
-    result = ocr_reader.readtext(image_path, output_format='json')
-    return jsonify(result)
+    result = ocr_reader.readtext(image_path)
+    return jsonify(ocr.result_json(result))
 
 # 运行应用程序，指定自定义端口
 if __name__ == '__main__':
-    app.run(port=app.config['PORT'])
+    app.run(host='0.0.0.0',port=app.config['PORT'])
