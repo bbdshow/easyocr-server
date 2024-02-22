@@ -26,6 +26,9 @@ RUN apt-get update && apt-get install -y \
 # 切换pip源到清华大学镜像源
 RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
+# 解决 pytorch 安装依赖问题
+RUN pip3 install networkx==3.1
+
 # 安装PyTorch CPU版本
 RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 # 安装 easyocr
