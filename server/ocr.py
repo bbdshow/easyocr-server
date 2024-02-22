@@ -35,10 +35,10 @@ def result_json(result):
         }
         coordinates_val = detection[0]
         if coordinates_val and len(coordinates_val) == 4:
-            data["top_left"] = [int(np.int64(coordinates_val[0][0])),int(np.    int64(coordinates_val[0][1]))]
-            data["top_right"] = [int(np.int64(coordinates_val[1][0])),int(np.   int64(coordinates_val[1][1]))]
-            data["bottom_right"] = [int(np.int64(coordinates_val[2][0])),int    (np.int64(coordinates_val[2][1]))]
-            data["bottom_left"] = [int(np.int64(coordinates_val[3][0])),int(np. int64(coordinates_val[3][1]))]
+            data["top_left"] = [int(np.int64(coordinates_val[0][0])),int(np.int64(coordinates_val[0][1]))]
+            data["top_right"] = [int(np.int64(coordinates_val[1][0])),int(np.int64(coordinates_val[1][1]))]
+            data["bottom_right"] = [int(np.int64(coordinates_val[2][0])),int(np.int64(coordinates_val[2][1]))]
+            data["bottom_left"] = [int(np.int64(coordinates_val[3][0])),int(np.int64(coordinates_val[3][1]))]
 
         output.append(data)
     return output
